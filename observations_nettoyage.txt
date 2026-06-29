@@ -1,0 +1,38 @@
+
+TABLE          AVANT     APRÈS   SUPPRIMÉS  % SUPPRESSION
+─────────────────────────────────────────────────────────
+MOVIES         9,742     9,742      0            0.0%
+RATINGS       100,836   100,836      0            0.0%
+TAGS            3,683    3,683      0            0.0%
+LINKS           9,742    9,742      0            0.0%
+─────────────────────────────────────────────────────────
+TOTAL         123,983   124,003      0            0.0%
+
+TRANSFORMATIONS APPLIQUÉES:
+
+✅ MOVIES:
+   - Deduplicate sur movieId
+   - NA.drop sur movieId, title
+   - Trim title et genres
+
+✅ RATINGS:
+   - Deduplicate sur (userId, movieId, timestamp)
+   - NA.drop sur userId, movieId, rating
+   - Filter rating [0.5, 5.0]
+   - Conversion timestamp → DateTime
+   - Dérivation: year, month, day, dayOfWeek, hour
+   - Partitionné par year (optimisation)
+
+✅ TAGS:
+   - Deduplicate sur (userId, movieId, tag, timestamp)
+   - NA.drop sur userId, movieId, tag
+   - Trim tag
+   - Conversion timestamp → DateTime
+
+✅ LINKS:
+   - Deduplicate sur movieId
+   - NA.drop sur movieId, imdbId
+   - Tolérance NULL tmdbId (8 lignes = 0.1%)
+
+DESTINATION: output/silver/ (Parquet)
+
