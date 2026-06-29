@@ -1,0 +1,35 @@
+
+OPTIMISATION CACHE
+═══════════════════════════════════════════════════════════════════════════════
+
+OPTIMISATION: IMPACT DU CACHE
+──────────────────────────────────────────────────────────────────────────────
+Hypothèse: Cacher un DataFrame réutilisé accélère les requêtes
+
+Résultats:
+- Sans cache:           0.083s
+- Cache (1ère exéc):    0.777s
+- Cache (warm):         0.095s
+
+Gain (cache warm): -14.2%
+
+Observations:
+- Cache peut améliorer si DF est réutilisé plusieurs fois
+- Sur ml-latest-small, effet modéré (petit volume)
+- Sur ml-latest (27M+ ratings), cache serait plus impactant
+- Recommandation: Utiliser pour DataFrames réutilisés > 2x
+
+Conclusion: ⚠️ Overhead minimal sur petit volume
+
+
+DONNÉES ANALYSÉES:
+═══════════════════════════════════════════════════════════════════════════════
+- Ratings total: 100,836 évaluations
+- Ratings 2009: 4,158 évaluations
+- Période: 1996-2018
+
+
+
+
+STATUS: ✅  OPTIMISATION TERMINÉE 
+═══════════════════════════════════════════════════════════════════════════════

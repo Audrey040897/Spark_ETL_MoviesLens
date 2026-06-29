@@ -1,0 +1,103 @@
+Package Version
+------- --------
+pip     25.3
+py4j    0.10.9.9
+pyspark 4.1.2
+(env) lokohaudrey@macbook-air-de-lokoh Spark_ETL % python Ingestion.py                               
+WARNING: Using incubator modules: jdk.incubator.vector
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/06/26 16:39:21 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Version de Spark : 4.1.2
+Master : local[*]
+
+================================================================================
+MOVIES
+================================================================================
+Nombre de lignes : 9742
+root
+ |-- movieId: integer (nullable = true)
+ |-- title: string (nullable = true)
+ |-- genres: string (nullable = true)
+
++-------+----------------------------------+-------------------------------------------+
+|movieId|title                             |genres                                     |
++-------+----------------------------------+-------------------------------------------+
+|1      |Toy Story (1995)                  |Adventure|Animation|Children|Comedy|Fantasy|
+|2      |Jumanji (1995)                    |Adventure|Children|Fantasy                 |
+|3      |Grumpier Old Men (1995)           |Comedy|Romance                             |
+|4      |Waiting to Exhale (1995)          |Comedy|Drama|Romance                       |
+|5      |Father of the Bride Part II (1995)|Comedy                                     |
++-------+----------------------------------+-------------------------------------------+
+only showing top 5 rows
+
+================================================================================
+RATINGS
+================================================================================
+Nombre de lignes : 100836
+root
+ |-- userId: integer (nullable = true)
+ |-- movieId: integer (nullable = true)
+ |-- rating: double (nullable = true)
+ |-- timestamp: long (nullable = true)
+
++------+-------+------+---------+
+|userId|movieId|rating|timestamp|
++------+-------+------+---------+
+|1     |1      |4.0   |964982703|
+|1     |3      |4.0   |964981247|
+|1     |6      |4.0   |964982224|
+|1     |47     |5.0   |964983815|
+|1     |50     |5.0   |964982931|
++------+-------+------+---------+
+only showing top 5 rows
+26/06/26 16:39:25 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
++-------+------------------+----------------+------------------+--------------------+
+|summary|            userId|         movieId|            rating|           timestamp|
++-------+------------------+----------------+------------------+--------------------+
+|  count|            100836|          100836|            100836|              100836|
+|   mean|326.12756356856676|19435.2957177992| 3.501556983616962|1.2059460873684695E9|
+| stddev| 182.6184914635004|35530.9871987003|1.0425292390606342|2.1626103599513078E8|
+|    min|                 1|               1|               0.5|           828124615|
+|    max|               610|          193609|               5.0|          1537799250|
++-------+------------------+----------------+------------------+--------------------+
+
+
+================================================================================
+TAGS
+================================================================================
+Nombre de lignes : 3683
+root
+ |-- userId: integer (nullable = true)
+ |-- movieId: integer (nullable = true)
+ |-- tag: string (nullable = true)
+ |-- timestamp: long (nullable = true)
+
++------+-------+---------------+----------+
+|userId|movieId|tag            |timestamp |
++------+-------+---------------+----------+
+|2     |60756  |funny          |1445714994|
+|2     |60756  |Highly quotable|1445714996|
+|2     |60756  |will ferrell   |1445714992|
+|2     |89774  |Boxing story   |1445715207|
+|2     |89774  |MMA            |1445715200|
++------+-------+---------------+----------+
+only showing top 5 rows
+
+================================================================================
+LINKS
+================================================================================
+Nombre de lignes : 9742
+root
+ |-- movieId: integer (nullable = true)
+ |-- imdbId: string (nullable = true)
+ |-- tmdbId: string (nullable = true)
+
++-------+-------+------+
+|movieId|imdbId |tmdbId|
++-------+-------+------+
+|1      |0114709|862   |
+|2      |0113497|8844  |
+|3      |0113228|15602 |
++-------+-------+------+

@@ -1,0 +1,93 @@
+
+JOUR 3: ANALYSES MÉTIER
+═══════════════════════════════════════════════════════════════════════════════
+
+ANALYSE 1: TOP 10 MEILLEURS FILMS
+──────────────────────────────────────────────────────────────────────────────
+Question: Quels sont les 10 meilleurs films (≥ 50 votes) ?
+Méthode: groupBy(movieId) + agg(avg, count) + filter + join + orderBy + limit
+
+⏱️  Temps: 0.916s
+Nombre films avec ≥50 votes: 10
+
+Top film: Shawshank Redemption, The (1994)
+Note: 4.43⭐
+Votes: 317
+
+Insights:
+- Les meilleurs films ont des notes > 8.0⭐
+- Tous les top 10 ont ≥ 50 votes (données solides)
+- Classiques reconnaissables
+
+📁 Output: output/gold/analysis1_best_films/
+
+
+ANALYSE 2: AVG RATING PAR GENRE + OPTIMISATION BROADCAST
+──────────────────────────────────────────────────────────────────────────────
+Question: Quel genre a la meilleure note moyenne ?
+Méthode: groupBy + agg + explode genres + join (broadcast vs regular)
+
+⏱️  Temps SANS broadcast: 0.503s
+⏱️  Temps AVEC broadcast: 0.360s
+📈 Gain optimisation: +28.5%
+
+Nombre genres: 19
+Top genre: Documentary
+Note: 3.78⭐
+
+Insights:
+- Broadcast join améliore la performance
+- Sur ml-latest-small (petite table), overhead broadcast peut être visible
+- Sur ml-latest (27M+ ratings), broadcast serait plus impactant
+- Genres bien distribués (pas de skew majeur)
+
+📁 Output: output/gold/analysis2_avg_by_genre/
+
+
+ANALYSE 3: TOP 3 FILMS PAR GENRE (WINDOW FUNCTION)
+──────────────────────────────────────────────────────────────────────────────
+Question: Quels sont les 3 meilleurs films dans chaque genre ?
+Méthode: Window.partitionBy(genre) + row_number() + filter(rank <= 3)
+
+⏱️  Temps exécution: 0.555s
+Genres: 20
+Films total: 58 (20 genres × 3)
+
+Insights:
+- Window function très efficace pour rankings
+- Pas de repartitioning lourd
+- Parfait pour analyses par sous-groupe
+- Applicable pour top-N à n'importe quel niveau
+
+📁 Output: output/gold/analysis3_top3_by_genre/
+
+
+DONNÉES UTILISÉES
+═══════════════════════════════════════════════════════════════════════════════
+- Movies: 9742 films
+- Ratings: 100836 évaluations
+- Utilisateurs: 610 uniques
+- Période: 1996-2018
+
+
+SPARK UI À ANALYSER
+═══════════════════════════════════════════════════════════════════════════════
+✅ URL: http://localhost:4040
+
+📸 Screenshots à capturer:
+1. Jobs page (liste des jobs exécutés)
+2. DAG Visualization (graphique d'exécution)
+3. Stages detail (détail par stage)
+4. Tasks metrics (distribution des tasks)
+
+Observez:
+- Nombre de stages (combien d'étapes ?)
+- Shuffle (exchange visible ?)
+- Broadcast (vérifier [BROADCAST] marker)
+- Task duration (bien balancées ?)
+
+
+STATUS: ✅ ANALYSES 1, 2 & 3 COMPLÉTÉES
+═══════════════════════════════════════════════════════════════════════════════
+
+Temps total analyses: 1.974s
