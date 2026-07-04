@@ -420,7 +420,7 @@ WholeStageCodegen → mapPartitionsInternal
 
 ---
 
-## ❓ FAQ
+## 📈 Performance Summary
 
 **"bash: data-download.sh: command not found"**
 ```bash
