@@ -1,0 +1,22 @@
+
+EXPLORATION AU-DELÀ DU COURS : CACHE
+===================================
+
+Question :
+Le cache améliore-t-il les performances lorsqu'un DataFrame est réutilisé plusieurs fois ?
+
+Protocole :
+Nous avons exécuté les mêmes requêtes sur ratings :
+- filtre sur l'année 2009
+- filtre sur les notes >= 4
+- agrégation par année
+- agrégation par note
+
+Mesures :
+- Sans cache : 4.656s
+- Avec cache : 1.379s
+- Gain : 70.4%
+
+Conclusion :
+Sur MovieLens Small, le cache a un effet limité car le volume est faible.
+Il devient plus pertinent sur un DataFrame volumineux réutilisé plusieurs fois.
