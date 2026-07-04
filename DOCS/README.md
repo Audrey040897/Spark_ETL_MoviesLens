@@ -420,7 +420,7 @@ WholeStageCodegen → mapPartitionsInternal
 
 ---
 
-## ❓ FAQ
+## 📈 Performance Summary
 
 **"bash: data-download.sh: command not found"**
 ```bash
@@ -450,33 +450,3 @@ Normal sur ml-latest-small (petit volume)
 Sur ml-latest (27M+), gains plus visibles
 ```
 
----
-
-## 🎓 Compétences acquises
-
-Vous pouvez maintenant:
-
-✅ Construire un pipeline ETL Spark complet
-✅ Concevoir des schémas explicites (pas d'inferSchema)
-✅ Nettoyer des données en masse (0% loss)
-✅ Optimiser les jointures (broadcast vs regular)
-✅ Écrire des window functions pour rankings
-✅ Mesurer et comparer les performances
-✅ Lire et analyser Spark UI (jobs, DAG, stages)
-✅ Déterminer quand cacher un DataFrame (utilité réelle)
-
----
-
-## 💼 Pour votre CV
-
-Vous pouvez mentionner:
-
-```
-Pipeline ETL Spark complet (123,983 lignes):
-- Schémas explicites, nettoyage 0% loss
-- 3 analyses métier (agrégation, broadcast, window)
-- Optimisations mesurées: broadcast +28.5%, cache +70.4%
-- Spark UI analysis (jobs, DAG, stages, partition pruning)
-```
-
----
